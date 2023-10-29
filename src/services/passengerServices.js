@@ -1,7 +1,11 @@
 import { passengerRepository } from '../repositories/passengerRepository.js'
 
-async function insertNewPassenger(payload) {
-   return await passengerRepository.addPassenger(payload)
+async function insertPassenger(payload) {
+   const result = await passengerRepository.addPassenger(payload)
+
+   // if (!result) throw { type: 'Not found', message: 'teste' }
+
+   return result
 }
 
-export const passengerService = { insertNewPassenger }
+export const passengerService = { insertPassenger }

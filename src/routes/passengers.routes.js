@@ -8,7 +8,7 @@ const passengersRoutes = Router()
 passengersRoutes.post(
    '/passenger',
    validateSchema(passengerSchema),
-   passengerController.insertNewPassenger
+   passengerController.insertPassenger
 )
 
 passengersRoutes.get('passengers/travels')
