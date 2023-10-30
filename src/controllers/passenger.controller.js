@@ -10,4 +10,14 @@ async function insertPassenger(req, res) {
    res.status(201).send({ ...id, firstName, lastName })
 }
 
-export const passengerController = { insertPassenger }
+async function listPassengers(req, res) {
+
+   const { name } = req.query
+
+   const result = await passengerService.listPassengers(name)
+
+   res.status(200).send(result.rows)
+
+}
+
+export const passengerController = { insertPassenger, listPassengers }

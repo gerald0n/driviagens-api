@@ -6,4 +6,14 @@ async function insertPassenger(payload) {
    return result
 }
 
-export const passengerService = { insertPassenger }
+async function listPassengers(query) {
+   if (query) {
+      const result = await passengerRepository.listPassengersWithQueryFilter(query)
+      return result
+   }
+
+   const result = await passengerRepository.listAllPassengers()
+   return result
+}
+
+export const passengerService = { insertPassenger, listPassengers }

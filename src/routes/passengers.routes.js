@@ -11,6 +11,6 @@ passengersRoutes.post(
    passengerController.insertPassenger
 )
 
-passengersRoutes.get('passengers/travels')
+passengersRoutes.get('/passengers/travels', passengerController.listPassengers)
 
 export default passengersRoutes
