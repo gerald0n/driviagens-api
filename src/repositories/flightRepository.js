@@ -7,4 +7,9 @@ function addFlight({ origin, destination, date }) {
    )
 }
 
-export const flightRepository = { addFlight }
+async function checkFlightById(id) {
+   const result = await db.query(`SELECT * FROM flights WHERE id = $1`, [id])
+   return result
+}
+
+export const flightRepository = { addFlight, checkFlightById }

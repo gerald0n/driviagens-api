@@ -5,7 +5,13 @@ function addCity(cityName) {
 }
 
 function checkCityByName(cityName) {
-  return db.query(`SELECT * FROM cities WHERE name = $1`, [cityName])
+  return db.query(`SELECT name FROM cities WHERE name = $1`, [cityName])
 }
 
-export const cityRepository = { addCity, checkCityByName }
+async function checkCityByID(cityId) {
+  const result = db.query(`SELECT name FROM cities WHERE id = $1`, [cityId])
+
+  return result
+}
+
+export const cityRepository = { addCity, checkCityByName, checkCityByID }

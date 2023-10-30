@@ -7,4 +7,9 @@ function addPassenger({ firstName, lastName }) {
    )
 }
 
-export const passengerRepository = { addPassenger }
+async function checkPassengerById(id) {
+   const result = await db.query(`SELECT * FROM passengers WHERE id = $1`, [id])
+   return result
+}
+
+export const passengerRepository = { addPassenger, checkPassengerById }
