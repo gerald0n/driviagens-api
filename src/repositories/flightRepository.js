@@ -14,7 +14,7 @@ async function checkFlightById(id) {
 
 function listFlights(origin, destination) {
    const initialQuery = `
-   SELECT f.id, co.name AS origin, cd.name AS destination, f.date 
+   SELECT f.id, co.name AS origin, cd.name AS destination, TO_CHAR(f.date, 'DD-MM-YYYY') AS date
       FROM flights f
       JOIN cities co
       ON co.id = f.origin

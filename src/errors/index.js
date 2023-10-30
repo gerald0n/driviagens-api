@@ -34,7 +34,7 @@ function unprocessableEntityError(entity) {
 function notFoundError() {
    return {
       type: 'not_found_error',
-      message: 'Ocorreu um erro, pois um ou mais dados informados não existem. Tente novamente!'
+      message: 'Ocorreu um erro, pois um ou mais dados informados devem existir em nosso banco de dados. Tente novamente!'
    }
 }
 

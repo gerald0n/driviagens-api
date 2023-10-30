@@ -20,7 +20,10 @@ async function insertNewFlight(payload) {
 
    if (cityOfOrigin.rowCount === 0 || destinationCity.rowCount === 0) throw errors.notFoundError()
 
-   const result = await flightRepository.addFlight(payload)
+   const result = await flightRepository.addFlight({
+      ...payload,
+      date: formattedDate.format('DD-MM-YYYY')
+   })
 
    return result
 }
