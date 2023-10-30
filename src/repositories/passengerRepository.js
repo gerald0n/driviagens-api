@@ -12,7 +12,7 @@ async function checkPassengerById(id) {
    return result
 }
 
-function listPassengersWithQueryFilter(query) {
+function listPassengers(query) {
    if (query) {
       return db.query(
          `
@@ -26,9 +26,7 @@ function listPassengersWithQueryFilter(query) {
          [`%${query}%`]
       )
    }
-}
 
-function listAllPassengers() {
    return db.query(`
    SELECT CONCAT(p."firstName", ' ', p."lastName") as passenger, COUNT(t."flightId") as travels 
       FROM passengers p
@@ -42,6 +40,5 @@ function listAllPassengers() {
 export const passengerRepository = {
    addPassenger,
    checkPassengerById,
-   listPassengersWithQueryFilter,
-   listAllPassengers
+   listPassengers
 }
