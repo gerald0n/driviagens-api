@@ -1,3 +1,4 @@
+import httpStatus from 'http-status'
 import { flightService } from '../services/flightServices.js'
 
 async function insertNewFlight(req, res) {
@@ -6,7 +7,15 @@ async function insertNewFlight(req, res) {
       rows: [id]
    } = await flightService.insertNewFlight(req.body)
 
-   res.status(201).send({ ...id, origin, destination, date })
+   res.status(httpStatus.CREATED).send({ ...id, origin, destination, date })
 }
 
-export const flightController = { insertNewFlight }
+async function listFlights(req, res) {
+   const { origin, destination } = req.query
+
+   const result = await flightService.listFlights(origin, destination)
+
+   res.status(httpStatus.OK).send(result.rows)
+}
+
+export const flightController = { insertNewFlight, listFlights }

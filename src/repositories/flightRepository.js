@@ -12,6 +12,36 @@ async function checkFlightById(id) {
    return result
 }
 
-function listFlights(origin, destination) {}
+function listFlights(origin, destination) {
+   const initialQuery = `
+   SELECT f.id, co.name AS origin, cd.name AS destination, f.date 
+      FROM flights f
+      JOIN cities co
+      ON co.id = f.origin
+      JOIN cities cd
+      ON cd.id = f.destination
+
+   `
+   const finalQuery = ` 
+      ORDER BY f.date ASC;
+   `
+
+   let filteringQuery = ''
+   const arrayValues = []
+
+   if (origin) {
+      filteringQuery += `WHERE co.name = $1`
+      arrayValues.push(origin)
+   }
+
+   if (destination) {
+      filteringQuery += filteringQuery
+         ? ` AND cd.name = $${arrayValues.length + 1}`
+         : ` WHERE cd.name = $${arrayValues.length + 1}`
+      arrayValues.push(destination)
+   }
+
+   return db.query(initialQuery + filteringQuery + finalQuery, arrayValues)
+}
 
 export const flightRepository = { addFlight, checkFlightById, listFlights }

@@ -18,15 +18,16 @@ async function insertNewFlight(payload) {
    const cityOfOrigin = await cityRepository.checkCityByID(origin)
    const destinationCity = await cityRepository.checkCityByID(destination)
 
-   if(cityOfOrigin.rowCount === 0 || destinationCity.rowCount === 0)
-      throw errors.notFoundError() 
-
-   // conferir se origin existe na table cities
-   // conferir se destination existe na table cities
+   if (cityOfOrigin.rowCount === 0 || destinationCity.rowCount === 0) throw errors.notFoundError()
 
    const result = await flightRepository.addFlight(payload)
 
    return result
 }
 
-export const flightService = { insertNewFlight }
+async function listFlights(origin, destination) {
+   const result = await flightRepository.listFlights(origin, destination)
+   return result
+}
+
+export const flightService = { insertNewFlight, listFlights }

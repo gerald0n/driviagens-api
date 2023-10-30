@@ -6,6 +6,6 @@ import { flightSchema } from '../schemas/flightSchema.js'
 const flightsRoutes = Router()
 
 flightsRoutes.post('/flights', validateSchema(flightSchema), flightController.insertNewFlight)
-flightsRoutes.get('/flights')
+flightsRoutes.get('/flights', flightController.listFlights)
 
 export default flightsRoutes

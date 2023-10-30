@@ -1,3 +1,4 @@
+import httpStatus from 'http-status'
 import { passengerService } from '../services/passengerServices.js'
 
 async function insertPassenger(req, res) {
@@ -7,7 +8,7 @@ async function insertPassenger(req, res) {
       rows: [id]
    } = await passengerService.insertPassenger(req.body)
 
-   res.status(201).send({ ...id, firstName, lastName })
+   res.status(httpStatus.CREATED).send({ ...id, firstName, lastName })
 }
 
 async function listPassengers(req, res) {
@@ -16,7 +17,7 @@ async function listPassengers(req, res) {
 
    const result = await passengerService.listPassengers(name)
 
-   res.status(200).send(result.rows)
+   res.status(httpStatus.OK).send(result.rows)
 
 }
 

@@ -1,3 +1,4 @@
+import httpStatus from "http-status"
 import { cityService } from "../services/cityServices.js"
 
 async function insertCity(req, res) {
@@ -6,7 +7,7 @@ async function insertCity(req, res) {
 
   const { rows: [id] } = await cityService.addCity(name)
 
-  res.status(201).send({...id, name})
+  res.status(httpStatus.CREATED).send({...id, name})
 }
 
 export const cityController = { insertCity }

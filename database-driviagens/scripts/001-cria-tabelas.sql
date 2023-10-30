@@ -7,7 +7,7 @@ CREATE TABLE "passengers" (
 
 CREATE TABLE "cities" (
 	"id" SERIAL PRIMARY KEY,
-	"name" TEXT NOT NULL,
+	"name" TEXT NOT NULL UNIQUE,
 	"createAt" TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
