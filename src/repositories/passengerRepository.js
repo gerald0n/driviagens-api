@@ -13,28 +13,24 @@ async function checkPassengerById(id) {
 }
 
 function listPassengers(query) {
-   if (query) {
-      return db.query(
-         `
-      SELECT CONCAT(p."firstName", ' ', p."lastName") as passenger, COUNT(t."flightId") as travels 
-         FROM passengers p
-         LEFT JOIN travels t
-         ON t."passengerId" = p.id
-         WHERE CONCAT(p."firstName", ' ', p."lastName") ILIKE $1
-         GROUP BY passenger
-         ORDER BY travels DESC`,
-         [`%${query}%`]
-      )
-   }
-
-   return db.query(`
+   const initialQuery = `
    SELECT CONCAT(p."firstName", ' ', p."lastName") as passenger, COUNT(t."flightId") as travels 
       FROM passengers p
       LEFT JOIN travels t
-      ON t."passengerId" = p.id
-      GROUP BY passenger
-      ORDER BY travels DESC
-   `)
+      ON t."passengerId" = p.id`
+
+   const filterQuery =
+      query &&
+      ` 
+      WHERE CONCAT(p."firstName", ' ', p."lastName") ILIKE $1`
+
+   const finalQuery = ` 
+      GROUP BY passenger 
+      ORDER BY travels DESC`
+
+   return query
+      ? db.query(initialQuery + filterQuery + finalQuery, [`%${query}%`])
+      : db.query(initialQuery + finalQuery)
 }
 
 export const passengerRepository = {

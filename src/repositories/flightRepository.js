@@ -12,4 +12,6 @@ async function checkFlightById(id) {
    return result
 }
 
-export const flightRepository = { addFlight, checkFlightById }
+function listFlights(origin, destination) {}
+
+export const flightRepository = { addFlight, checkFlightById, listFlights }
